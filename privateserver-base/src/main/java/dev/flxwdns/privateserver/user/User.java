@@ -17,4 +17,9 @@ public final class User {
 
     private final List<Server> servers;
     private final List<Domain> domains;
+
+    public void updateServer(Server server) {
+        this.servers.removeIf(it -> it.serverUniqueId().equals(server.serverUniqueId()));
+        this.servers.add(server);
+    }
 }

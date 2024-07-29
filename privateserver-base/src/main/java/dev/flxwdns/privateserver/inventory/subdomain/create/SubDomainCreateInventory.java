@@ -6,7 +6,6 @@ import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import de.rapha149.signgui.SignGUI;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.HomeInventory;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
 import dev.flxwdns.privateserver.user.impl.Domain;
 import net.kyori.adventure.text.Component;

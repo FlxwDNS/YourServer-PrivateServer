@@ -1,4 +1,4 @@
-package dev.flxwdns.privateserver.inventory.server.filter;
+package dev.flxwdns.privateserver.inventory.server.impl;
 
 import de.flxwdev.ascan.inventory.SingletonView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
@@ -15,7 +15,7 @@ import java.util.List;
 public final class ServerInventory extends SingletonView {
 
     public ServerInventory(Player player, Server server) {
-        super(player, Component.text("§7Server §8| §e" + server.name()), 6, false);
+        super(player, Component.text("§7" + server.name()), 6, false);
 
         placeHolder(1);
         placeHolder(6);
@@ -43,7 +43,7 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7RAM setzen§8."
         )), () -> player.sendMessage("§cNot implemented yet.")));
 
-        item(5, 1, new InteractItem(new ItemView(Material.LIGHT_BLUE_DYE).name("§eSlots").rawList(List.of(
+        item(5, 1, new InteractItem(new ItemView(Material.AMETHYST_SHARD).name("§eSlots").rawList(List.of(
                 "§7",
                 "§7Aktuelle Slots §8» §e5",
                 "§7",
@@ -60,7 +60,7 @@ public final class ServerInventory extends SingletonView {
                 "§7Das Icon wird in der Serverliste angezeigt§8.",
                 "§7",
                 "§eKlick §8» §7Icon setzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> new ServerIconInventory(player, server, "")));
 
         item(new InteractItem(new ItemView(Material.ACACIA_SIGN).name("§eNamen ändern").rawList(List.of(
                 "§7Aktueller Name §8» §e" + server.name(),
@@ -120,7 +120,7 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7Alias setzen§8."
         )), () -> player.sendMessage("§cNot implemented yet.")));
 
-        item(new InteractItem(new ItemView(Material.LIGHT_BLUE_DYE).name("§bVerbinden").rawList(List.of(
+        item(new InteractItem(new ItemView(Material.LIGHT_BLUE_DYE).name("§eVerbinden").rawList(List.of(
                 "§7",
                 "§7Du hast es endlich geschafft alles einzustellen§8?",
                 "§7Dann verbinde dich zu deinen Server§8!",

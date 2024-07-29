@@ -6,7 +6,7 @@ import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
-import dev.flxwdns.privateserver.inventory.server.filter.ServerInventory;
+import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
 import dev.flxwdns.privateserver.utils.NameFetcher;
 import net.kyori.adventure.text.Component;
