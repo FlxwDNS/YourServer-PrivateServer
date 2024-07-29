@@ -4,10 +4,14 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://repo.thesimplecloud.eu/artifactory/list/gradle-release-local/")
 }
 
 dependencies {
     implementation("de.rapha149.signgui:signgui:2.3.6")
+
+    // simplecloud
+    compileOnly("eu.thesimplecloud.simplecloud:simplecloud-api:2.4.1")
 }
 
 tasks.withType<JavaCompile> {

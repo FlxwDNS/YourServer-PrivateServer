@@ -5,6 +5,7 @@ import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
+import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
@@ -36,7 +37,9 @@ public final class ServerInventory extends SingletonView {
                 "§7Aktueller Status §8» §cOFFLINE",
                 "§7",
                 "§eKlick §8» §7Server starten§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> {
+            new SimpleCloudHandler().start(player, server.serverUniqueId());
+        }));
 
         item(4, 1, new InteractItem(new ItemView(Material.COMPARATOR).name("§eRAM").rawList(List.of(
                 "§7",
