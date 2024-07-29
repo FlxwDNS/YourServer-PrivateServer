@@ -4,6 +4,11 @@ import de.flxwdev.ascan.inventory.SingletonView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
+import dev.flxwdns.privateserver.PrivateServer;
+import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
+import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
+import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
+import dev.flxwdns.privateserver.sign.SignBuilder;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -69,7 +74,16 @@ public final class ServerInventory extends SingletonView {
                 "§7Denk dran§8, §7jeder Server brauch einen guten Namen§8.",
                 "§7",
                 "§eKlick §8» §7Name setzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> {
+            SignBuilder.buildSign(player, name -> {
+                server.name(name);
+                PrivateServer.instance().userHandler().user(player).updateServer(server);
+
+                player.sendMessage("§aDer Name wurde erfolgreich geändert.");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
+                new ServerInventory(player, server);
+            }, PrivateServer.instance());
+        }));
 
         item(new InteractItem(new ItemView(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGU0YjhiOGQyMzYyYzg2NGUwNjIzMDE0ODdkOTRkMzI3MmE2YjU3MGFmYmY4MGMyYzViMTQ4Yzk1NDU3OWQ0NiJ9fX0=")).name("§cServer löschen").rawList(List.of(
                 "§7",
@@ -88,13 +102,22 @@ public final class ServerInventory extends SingletonView {
         )), () -> player.sendMessage("§cNot implemented yet.")));
 
         item(new InteractItem(new ItemView(Material.BOOK).name("§eBeschreibung").rawList(List.of(
-                "§7Aktuelle Beschreibung §8» §e" + server.description(),
+                "§7Aktuelle Beschreibung §8» §e" + (server.description() == null ? "§7Keine" : server.description()),
                 "§7",
                 "§7Setze eine Beschreibung für deinen Server§8.",
                 "§7Damit sammelst du schonmal die ersten Spieler§8.",
                 "§7",
                 "§eKlick §8» §7Beschreibung ändern§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> {
+            SignBuilder.buildSign(player, description -> {
+                server.description(description);
+                PrivateServer.instance().userHandler().user(player).updateServer(server);
+
+                player.sendMessage("§aDie Beschreibung wurde erfolgreich geändert.");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
+                new ServerInventory(player, server);
+            }, PrivateServer.instance());
+        }));
 
         item(new InteractItem(new ItemView(Material.ANVIL).name("§eEinstellungen").rawList(List.of(
                 "§7",
@@ -112,14 +135,6 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7Plugins einstellen§8."
         )), () -> player.sendMessage("§cNot implemented yet.")));
 
-        item(new InteractItem(new ItemView(Material.NAME_TAG).name("§eAlias").rawList(List.of(
-                "§7",
-                "§7Setze einen Alias für deinen Server§8.",
-                "§7Denk dran§8, §7jeder Alias ist einzigartig§8.",
-                "§7",
-                "§eKlick §8» §7Alias setzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
-
         item(new InteractItem(new ItemView(Material.LIGHT_BLUE_DYE).name("§eVerbinden").rawList(List.of(
                 "§7",
                 "§7Du hast es endlich geschafft alles einzustellen§8?",
@@ -127,6 +142,10 @@ public final class ServerInventory extends SingletonView {
                 "§7",
                 "§eKlick §8» §7Zum Server verbinden§8."
         )), () -> player.sendMessage("§cNot implemented yet.")));
+
+        item(6, 8, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cZurück"), () -> {
+            new ServerListInventory(player, ServerFilter.ALL);
+        }));
 
         player.openInventory(this.inventory());
         player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f, 1f);

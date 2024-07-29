@@ -4,9 +4,9 @@ import de.flxwdev.ascan.inventory.SingletonView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
-import de.rapha149.signgui.SignGUI;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
+import dev.flxwdns.privateserver.sign.SignBuilder;
 import dev.flxwdns.privateserver.user.impl.Domain;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -44,18 +44,7 @@ public final class SubDomainCreateInventory extends SingletonView {
                 Component.text("§7Die Subdomain wird an die Domain angehängt§8."),
                 Component.empty(),
                 Component.text("§eKlick §8» §7Subdomain auswählen")
-        )), () -> SignGUI.builder()
-                .setLines(null, "-------------", "Warte auf input...")
-                .setHandler((unused, result) -> {
-                    if(result.getLine(0).isEmpty()) {
-                        player.sendMessage("§cBitte gebe einen gültigen Namen ein.");
-                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
-                        return Collections.emptyList();
-                    }
-                    player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
-                    Bukkit.getScheduler().runTaskLater(PrivateServer.instance(), () -> new SubDomainCreateInventory(player, domain, result.getLine(0).toLowerCase()), 5L);
-                    return Collections.emptyList();
-                }).build().open(player)));
+        )), () -> SignBuilder.buildSign(player, name -> new SubDomainCreateInventory(player, domain, name), PrivateServer.instance())));
 
         item(2, 6, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cZurück"), () -> {
             new SubDomainListInventory(player);

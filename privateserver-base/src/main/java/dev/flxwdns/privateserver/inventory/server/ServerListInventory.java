@@ -59,11 +59,10 @@ public final class ServerListInventory extends PageableView<Server> {
     @Override
     public InteractItem constructItem(Server server) {
         var owner = PrivateServer.instance().userHandler().repository().query().find().stream().filter(it -> it.servers().contains(server)).findFirst().orElse(null);
-        return new InteractItem(ItemView.of(server.icon()).name("§7Server§8: " + server.name()).list(List.of(
-                Component.text("§7Alias §8» §7-"),
+        return new InteractItem(ItemView.of(server.icon()).name("§7" + server.name()).list(List.of(
                 Component.text("§7Status §8» §cOFFLINE"),
                 Component.empty(),
-                Component.text("§fKeine Beschreibung gefunden."),
+                Component.text(server.description() == null ? "§fKeine Beschreibung gefunden." : "§f" + server.description()),
                 Component.empty(),
                 Component.text("§7Spieler §8» §70/0"),
                 Component.text("§7Besitzer §8» §7" + NameFetcher.name(owner.uniqueId())),

@@ -9,7 +9,6 @@ repositories {
 
 dependencies {
     implementation(project(":privateserver-api"))
-    implementation("de.rapha149.signgui:signgui:2.3.6")
 }
 
 tasks.withType<JavaCompile> {

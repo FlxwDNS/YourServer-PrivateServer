@@ -48,7 +48,7 @@ public final class SubDomainListInventory extends PageableView<Domain> {
     @Override
     public InteractItem constructItem(Domain domain) {
         return new InteractItem(ItemView.of(Material.PAPER).name("§e" + domain.domain()), () -> {
-            new SubDomainManageInventory(this.player(), domain.domain(), domain.connectedServer());
+            new SubDomainInventory(this.player(), domain.domain(), domain.connectedServer());
         });
     }
 }
