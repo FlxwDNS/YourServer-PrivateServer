@@ -76,8 +76,10 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7Name setzen§8."
         )), () -> {
             SignBuilder.buildSign(player, name -> {
+                var user = PrivateServer.instance().userHandler().user(player);
                 server.name(name);
-                PrivateServer.instance().userHandler().user(player).updateServer(server);
+                user.updateServer(server);
+                PrivateServer.instance().userHandler().update(user);
 
                 player.sendMessage("§aDer Name wurde erfolgreich geändert.");
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
@@ -110,8 +112,10 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7Beschreibung ändern§8."
         )), () -> {
             SignBuilder.buildSign(player, description -> {
+                var user = PrivateServer.instance().userHandler().user(player);
                 server.description(description);
-                PrivateServer.instance().userHandler().user(player).updateServer(server);
+                user.updateServer(server);
+                PrivateServer.instance().userHandler().update(user);
 
                 player.sendMessage("§aDie Beschreibung wurde erfolgreich geändert.");
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
