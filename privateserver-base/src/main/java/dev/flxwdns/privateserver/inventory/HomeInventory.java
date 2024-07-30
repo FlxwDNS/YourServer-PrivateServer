@@ -30,7 +30,7 @@ public final class HomeInventory extends SingletonView {
                 Component.text("§7Erstelle deinen eigenen Server§8.")
         )), () -> {
             var user = PrivateServer.instance().userHandler().user(player);
-            user.servers().add(new Server(UUID.randomUUID(), System.currentTimeMillis(), "Server von " + player.getName(), null, Material.SCAFFOLDING));
+            user.servers().add(new Server(UUID.randomUUID(), System.currentTimeMillis(), null, "Server von " + player.getName(), null, Material.SCAFFOLDING));
             PrivateServer.instance().userHandler().update(user);
             player.closeInventory();
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
