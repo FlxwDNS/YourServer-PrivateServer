@@ -15,6 +15,8 @@ public final class Server {
 
     private long created;
 
+    private String runningId;
+
     private String name;
     private String description;
     private Material icon;

@@ -8,6 +8,7 @@ import dev.flxwdns.privateserver.cloud.CloudHandler;
 import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.command.PrivateServerCommand;
 import dev.flxwdns.privateserver.listener.PlayerJoinListener;
+import dev.flxwdns.privateserver.user.User;
 import dev.flxwdns.privateserver.user.UserHandler;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -39,6 +40,15 @@ public final class PrivateServer extends JavaPlugin {
             default:
                 throw new RuntimeException("Unknown cloud handler.");
         }
+        this.cloudHandler.onServiceShutdown(serviceId -> {
+            for (User user : this.userHandler.repository().query().find()) {
+                user.servers().stream().filter(it -> it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> {
+                    it.runningId(null);
+                    user.updateServer(it);
+                });
+                this.userHandler.update(user);
+            }
+        });
 
         AscanLayer.init(this, new Config()
                 .placeHolder(Material.GRAY_STAINED_GLASS_PANE)

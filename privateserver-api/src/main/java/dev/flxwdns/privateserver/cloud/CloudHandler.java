@@ -1,9 +1,13 @@
 package dev.flxwdns.privateserver.cloud;
 
-import org.bukkit.entity.Player;
-
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public interface CloudHandler {
-    void start(Player player, UUID serverId);
+    void onServiceShutdown(Consumer<String> id);
+
+    String start(UUID serverId);
+    void shutdown(String serverId);
+
+    boolean isRunning(UUID serverId);
 }

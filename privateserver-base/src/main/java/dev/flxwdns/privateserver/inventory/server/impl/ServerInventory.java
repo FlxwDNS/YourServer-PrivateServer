@@ -32,14 +32,29 @@ public final class ServerInventory extends SingletonView {
             placeHolder(1 + i, 8);
         }
 
-        item(2, 1, new InteractItem(new ItemView(Material.RED_STAINED_GLASS).name("§cServer ist Offline").rawList(List.of(
-                "§7",
-                "§7Aktueller Status §8» §cOFFLINE",
-                "§7",
-                "§eKlick §8» §7Server starten§8."
-        )), () -> {
-            PrivateServer.instance().cloudHandler().start(player, server.serverUniqueId());
-        }));
+        if(server.runningId() == null) {
+            item(2, 1, new InteractItem(new ItemView(Material.RED_STAINED_GLASS).name("§cServer ist Offline").rawList(List.of(
+                    "§7",
+                    "§7Aktueller Status §8» §cOFFLINE",
+                    "§7",
+                    "§eKlick §8» §7Server starten§8."
+            )), () -> {
+                var user = PrivateServer.instance().userHandler().user(player);
+                var id = PrivateServer.instance().cloudHandler().start(server.serverUniqueId());
+                server.runningId(id);
+                user.updateServer(server);
+                PrivateServer.instance().userHandler().update(user);
+            }));
+        } else {
+            item(2, 1, new InteractItem(new ItemView(Material.LIME_STAINED_GLASS).name("§aServer ist Online").rawList(List.of(
+                    "§7",
+                    "§7Aktueller Status §8» §aONLINE",
+                    "§7",
+                    "§eKlick §8» §7Server stoppen§8."
+            )), () -> {
+                PrivateServer.instance().cloudHandler().shutdown(server.runningId());
+            }));
+        }
 
         item(4, 1, new InteractItem(new ItemView(Material.COMPARATOR).name("§eRAM").rawList(List.of(
                 "§7",

@@ -1,18 +1,39 @@
 package dev.flxwdns.privateserver.cloud;
 
 import eu.thesimplecloud.api.CloudAPI;
+import eu.thesimplecloud.api.event.service.CloudServiceUnregisteredEvent;
+import eu.thesimplecloud.api.eventapi.CloudEventHandler;
+import eu.thesimplecloud.api.eventapi.IListener;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
 import java.nio.file.Path;
 import java.util.UUID;
+import java.util.function.Consumer;
 
-public class SimpleCloudHandler implements CloudHandler {
+public class SimpleCloudHandler implements CloudHandler, IListener {
+    private Consumer<String> shutdownConsumer;
+
+    public SimpleCloudHandler() {
+        CloudAPI.getInstance().getEventManager().registerListener(CloudAPI.getInstance().getThisSidesCloudModule(), this);
+    }
+
+    @CloudEventHandler
+    public void handle(CloudServiceUnregisteredEvent event) {
+        if(shutdownConsumer != null) {
+            shutdownConsumer.accept(event.getCloudService().getDisplayName());
+        }
+    }
+
+    @Override
+    public void onServiceShutdown(Consumer<String> id) {
+        this.shutdownConsumer = id;
+    }
 
     @Override
     @SneakyThrows
-    public void start(Player player, UUID serverId) {
+    public String start(UUID serverId) {
         var template = CloudAPI.getInstance().getTemplateManager().getTemplateByName("PS");
         if(template == null) throw new RuntimeException("Template PS not found");
         var serviceGroup = CloudAPI.getInstance().getCloudServiceGroupManager().getServiceGroupByName("PS");
@@ -30,5 +51,20 @@ public class SimpleCloudHandler implements CloudHandler {
         } else {
             savePath.resolve(serverId.toString()).toFile().mkdirs();
         }
+        return service.getDisplayName();
+    }
+
+    @Override
+    public void shutdown(String serverId) {
+        var service = CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName(serverId);
+        if(service != null) {
+            service.shutdown();
+        }
+    }
+
+    @Override
+    public boolean isRunning(UUID serverId) {
+        var service = CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName(serverId.toString());
+        return service != null && service.isOnline();
     }
 }
