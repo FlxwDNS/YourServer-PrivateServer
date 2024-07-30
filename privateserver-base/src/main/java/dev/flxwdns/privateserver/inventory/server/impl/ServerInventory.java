@@ -63,8 +63,9 @@ public final class ServerInventory extends SingletonView {
                 user.updateServer(server);
                 PrivateServer.instance().userHandler().update(user);
 
+                new ServerInventory(player, server);
                 PrivateServer.instance().cloudHandler().shutdown(id);
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 0f);
             }));
         }
 
@@ -175,7 +176,18 @@ public final class ServerInventory extends SingletonView {
                 "§7Dann verbinde dich zu deinen Server§8!",
                 "§7",
                 "§eKlick §8» §7Zum Server verbinden§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> {
+            if(server.runningId() == null) {
+                player.sendMessage("§cDer Server ist nicht online.");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                return;
+            }
+            player.closeInventory();
+            PrivateServer.instance().cloudHandler().connect(player.getUniqueId(), server.runningId());
+
+            player.sendMessage("§aConnecting to server...");
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
+        }));
 
         item(6, 8, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cZurück"), () -> {
             new ServerListInventory(player, ServerFilter.ALL);

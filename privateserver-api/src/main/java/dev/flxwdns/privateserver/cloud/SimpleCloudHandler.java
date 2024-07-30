@@ -2,12 +2,10 @@ package dev.flxwdns.privateserver.cloud;
 
 import eu.thesimplecloud.api.CloudAPI;
 import eu.thesimplecloud.api.event.service.CloudServiceUnregisteredEvent;
-import eu.thesimplecloud.api.event.service.CloudServiceUpdatedEvent;
 import eu.thesimplecloud.api.eventapi.CloudEventHandler;
 import eu.thesimplecloud.api.eventapi.IListener;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.entity.Player;
 
 import java.nio.file.Path;
 import java.util.UUID;
@@ -61,6 +59,15 @@ public class SimpleCloudHandler implements CloudHandler, IListener {
         var service = CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName(serverId);
         if(service != null) {
             service.shutdown();
+        }
+    }
+
+    @Override
+    @SneakyThrows
+    public void connect(UUID uniqueId, String serverId) {
+        var service = CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName(serverId);
+        if(service != null) {
+            CloudAPI.getInstance().getCloudPlayerManager().getCloudPlayer(uniqueId).get().connect(service);
         }
     }
 

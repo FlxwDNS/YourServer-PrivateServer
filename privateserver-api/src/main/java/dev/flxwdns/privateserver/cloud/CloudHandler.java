@@ -9,5 +9,7 @@ public interface CloudHandler {
     String start(UUID serverId);
     void shutdown(String serverId);
 
+    void connect(UUID uniqueId, String serverId);
+
     boolean isRunning(UUID serverId);
 }
