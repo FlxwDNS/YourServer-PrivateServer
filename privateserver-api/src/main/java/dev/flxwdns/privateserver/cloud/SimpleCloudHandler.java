@@ -2,6 +2,7 @@ package dev.flxwdns.privateserver.cloud;
 
 import eu.thesimplecloud.api.CloudAPI;
 import eu.thesimplecloud.api.event.service.CloudServiceUnregisteredEvent;
+import eu.thesimplecloud.api.event.service.CloudServiceUpdatedEvent;
 import eu.thesimplecloud.api.eventapi.CloudEventHandler;
 import eu.thesimplecloud.api.eventapi.IListener;
 import lombok.SneakyThrows;
@@ -21,6 +22,7 @@ public class SimpleCloudHandler implements CloudHandler, IListener {
 
     @CloudEventHandler
     public void handle(CloudServiceUnregisteredEvent event) {
+        System.out.println("Service " + event.getCloudService().getDisplayName() + " has been unregistered");
         if(shutdownConsumer != null) {
             shutdownConsumer.accept(event.getCloudService().getDisplayName());
         }

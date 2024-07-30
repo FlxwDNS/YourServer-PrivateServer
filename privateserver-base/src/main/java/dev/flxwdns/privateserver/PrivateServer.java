@@ -42,7 +42,7 @@ public final class PrivateServer extends JavaPlugin {
         }
         this.cloudHandler.onServiceShutdown(serviceId -> {
             for (User user : this.userHandler.repository().query().find()) {
-                user.servers().stream().filter(it -> it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> {
+                user.servers().stream().filter(it -> it.runningId() != null && it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> {
                     it.runningId(null);
                     user.updateServer(it);
                 });
