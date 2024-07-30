@@ -13,6 +13,7 @@ public final class Server {
     @PrimaryKey
     private final UUID serverUniqueId;
 
+    private long lastStarted;
     private long created;
 
     private String runningId;

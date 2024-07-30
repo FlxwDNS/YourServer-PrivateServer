@@ -42,7 +42,9 @@ public final class ServerInventory extends SingletonView {
                 var user = PrivateServer.instance().userHandler().user(player);
                 var id = PrivateServer.instance().cloudHandler().start(server.serverUniqueId());
                 server.runningId(id);
+                server.lastStarted(System.currentTimeMillis());
                 user.updateServer(server);
+
                 PrivateServer.instance().userHandler().update(user);
             }));
         } else {
@@ -52,7 +54,12 @@ public final class ServerInventory extends SingletonView {
                     "§7",
                     "§eKlick §8» §7Server stoppen§8."
             )), () -> {
-                PrivateServer.instance().cloudHandler().shutdown(server.runningId());
+                var id = server.runningId();
+                var user = PrivateServer.instance().userHandler().user(player);
+                server.runningId(null);
+                user.updateServer(server);
+
+                PrivateServer.instance().cloudHandler().shutdown(id);
             }));
         }
 
