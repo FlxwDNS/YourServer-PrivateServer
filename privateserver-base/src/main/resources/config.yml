@@ -9,6 +9,9 @@
 
 # MySQL is in sql.json
 
+# cloudnetv3, cloudnetv4, simplecloud
+cloud-handler: "simplecloud"
+
 # Server
 domains:
     - "sympta.de"

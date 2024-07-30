@@ -38,7 +38,7 @@ public final class ServerInventory extends SingletonView {
                 "§7",
                 "§eKlick §8» §7Server starten§8."
         )), () -> {
-            new SimpleCloudHandler().start(player, server.serverUniqueId());
+            PrivateServer.instance().cloudHandler().start(player, server.serverUniqueId());
         }));
 
         item(4, 1, new InteractItem(new ItemView(Material.COMPARATOR).name("§eRAM").rawList(List.of(

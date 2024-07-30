@@ -4,6 +4,8 @@ import de.flxwdev.ascan.AscanLayer;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import de.flxwdev.ascan.misc.Config;
+import dev.flxwdns.privateserver.cloud.CloudHandler;
+import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.command.PrivateServerCommand;
 import dev.flxwdns.privateserver.listener.PlayerJoinListener;
 import dev.flxwdns.privateserver.user.UserHandler;
@@ -18,6 +20,7 @@ public final class PrivateServer extends JavaPlugin {
     private static PrivateServer instance;
 
     private UserHandler userHandler;
+    private CloudHandler cloudHandler;
 
     @Override
     public void onEnable() {
@@ -26,6 +29,16 @@ public final class PrivateServer extends JavaPlugin {
         this.saveDefaultConfig();
 
         this.userHandler = new UserHandler();
+
+        switch (this.getConfig().getString("cloud-handler")) {
+            case "simplecloud":
+                this.cloudHandler = new SimpleCloudHandler();
+                break;
+            case null:
+                throw new RuntimeException("Cloud handler is null.");
+            default:
+                throw new RuntimeException("Unknown cloud handler.");
+        }
 
         AscanLayer.init(this, new Config()
                 .placeHolder(Material.GRAY_STAINED_GLASS_PANE)
