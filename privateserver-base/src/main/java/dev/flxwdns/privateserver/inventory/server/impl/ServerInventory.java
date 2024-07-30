@@ -46,6 +46,9 @@ public final class ServerInventory extends SingletonView {
                 user.updateServer(server);
 
                 PrivateServer.instance().userHandler().update(user);
+
+                player.closeInventory();
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
             }));
         } else {
             item(2, 1, new InteractItem(new ItemView(Material.LIME_STAINED_GLASS).name("§aServer ist Online").rawList(List.of(
@@ -58,8 +61,10 @@ public final class ServerInventory extends SingletonView {
                 var user = PrivateServer.instance().userHandler().user(player);
                 server.runningId(null);
                 user.updateServer(server);
+                PrivateServer.instance().userHandler().update(user);
 
                 PrivateServer.instance().cloudHandler().shutdown(id);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
             }));
         }
 
