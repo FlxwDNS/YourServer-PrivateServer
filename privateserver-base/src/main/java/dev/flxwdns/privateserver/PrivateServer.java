@@ -10,10 +10,16 @@ import dev.flxwdns.privateserver.command.PrivateServerCommand;
 import dev.flxwdns.privateserver.listener.PlayerJoinListener;
 import dev.flxwdns.privateserver.user.User;
 import dev.flxwdns.privateserver.user.UserHandler;
+import dev.flxwdns.privateserver.user.impl.Server;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 public final class PrivateServer extends JavaPlugin {
@@ -41,13 +47,16 @@ public final class PrivateServer extends JavaPlugin {
                 throw new RuntimeException("Unknown cloud handler.");
         }
         this.cloudHandler.onServiceShutdown(serviceId -> {
+            Map<Server, User> servers = new HashMap<>();
+
             for (User user : this.userHandler.repository().query().find()) {
-                user.servers().stream().filter(it -> it.runningId() != null && it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> {
-                    it.runningId(null);
-                    user.updateServer(it);
-                });
-                this.userHandler.update(user);
+                user.servers().stream().filter(it -> it.runningId() != null && it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> servers.put(it, user));
             }
+            servers.forEach((server, user) -> {
+                user.servers().remove(server);
+                user.updateServer(server);
+                this.userHandler.update(user);
+            });
         });
 
         AscanLayer.init(this, new Config()
