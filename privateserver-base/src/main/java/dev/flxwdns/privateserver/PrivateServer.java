@@ -34,7 +34,7 @@ public final class PrivateServer extends JavaPlugin {
         instance = this;
 
         this.saveDefaultConfig();
-        ConnectionAuthenticationPath.set(Path.of("plugins/PrivateServer/auth.json").toAbsolutePath().toString());
+        ConnectionAuthenticationPath.set(Path.of("plugins/YourServer/auth.json").toAbsolutePath().toString());
 
         this.userHandler = new UserHandler();
 
