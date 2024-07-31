@@ -2,26 +2,25 @@ package dev.flxwdns.privateserver.plugin;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.bukkit.Material;
 
 import java.nio.file.Path;
 
 @Getter
 @AllArgsConstructor
 public final class CustomPlugin {
-    private final String url;
-
-    public String name() {
-        return url.substring(url.lastIndexOf('/') + 1);
-    }
+    private final String name;
+    private final Material material;
+    private final String description;
+    private final String id;
 
     public void download(Path path) {
-        if(url.startsWith("https://www.spigotmc.org/resources/")) {
-
+        if(!id.startsWith("https://") && !id.contains(".")) {
             return;
         }
-        if(url.endsWith(".jar")) {
+        if(id.endsWith(".jar")) {
             return;
         }
-        throw new RuntimeException("Invalid plugin URL: " + url + " (must be a SpigotMC resource URL or a direct JAR download URL)");
+        throw new RuntimeException("Invalid ID: " + id + " (must be a SpigotMC resource ID or a direct JAR download URL)");
     }
 }

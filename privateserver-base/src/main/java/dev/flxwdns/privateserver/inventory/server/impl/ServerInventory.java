@@ -8,6 +8,7 @@ import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
+import dev.flxwdns.privateserver.inventory.server.plugins.PluginInventory;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
 import dev.flxwdns.privateserver.sign.SignBuilder;
 import dev.flxwdns.privateserver.user.impl.Server;
@@ -168,7 +169,7 @@ public final class ServerInventory extends SingletonView {
                 "§7Solltest du WorldEdit brauchen§8? §7Kein Problem§8.",
                 "§7",
                 "§eKlick §8» §7Plugins einstellen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> new PluginInventory(player, server)));
 
         item(new InteractItem(new ItemView(Material.LIGHT_BLUE_DYE).name("§eVerbinden").rawList(List.of(
                 "§7",
