@@ -12,5 +12,5 @@ dependencies {
 }
 
 tasks.withType<Jar> {
-    archiveFileName.set("YourServer-PServer.jar")
+    archiveFileName.set("YourServer.jar")
 }
