@@ -12,5 +12,5 @@ dependencies {
 }
 
 tasks.withType<Jar> {
-    archiveFileName.set("easycloudservice.jar")
+    archiveFileName.set("YourServer-PServer.jar")
 }
