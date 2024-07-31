@@ -11,14 +11,14 @@ import dev.flxwdns.privateserver.listener.PlayerJoinListener;
 import dev.flxwdns.privateserver.user.User;
 import dev.flxwdns.privateserver.user.UserHandler;
 import dev.flxwdns.privateserver.user.impl.Server;
+import dev.httpmarco.evelon.layer.connection.ConnectionAuthenticationPath;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -34,6 +34,7 @@ public final class PrivateServer extends JavaPlugin {
         instance = this;
 
         this.saveDefaultConfig();
+        ConnectionAuthenticationPath.set(Path.of("plugins/PrivateServer/auth.json").toAbsolutePath().toString());
 
         this.userHandler = new UserHandler();
 
@@ -53,8 +54,9 @@ public final class PrivateServer extends JavaPlugin {
                 user.servers().stream().filter(it -> it.runningId() != null && it.runningId().equalsIgnoreCase(serviceId)).forEach(it -> servers.put(it, user));
             }
             servers.forEach((server, user) -> {
-                user.servers().remove(server);
+                server.runningId(null);
                 user.updateServer(server);
+
                 this.userHandler.update(user);
             });
         });

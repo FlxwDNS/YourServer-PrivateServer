@@ -7,6 +7,7 @@ import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
+import dev.flxwdns.privateserver.inventory.server.utils.ConfirmInventory;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
@@ -28,13 +29,13 @@ public final class HomeInventory extends SingletonView {
 
         item(2, 2, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjA1NmJjMTI0NGZjZmY5OTM0NGYxMmFiYTQyYWMyM2ZlZTZlZjZlMzM1MWQyN2QyNzNjMTU3MjUzMWYifX19")).name("§aServer erstellen").list(List.of(
                 Component.text("§7Erstelle deinen eigenen Server§8.")
-        )), () -> {
+        )), () -> new ConfirmInventory(player, () -> {
             var user = PrivateServer.instance().userHandler().user(player);
             user.servers().add(new Server(UUID.randomUUID(), -1, System.currentTimeMillis(), null, "Server von " + player.getName(), null, Material.SCAFFOLDING));
             PrivateServer.instance().userHandler().update(user);
             player.closeInventory();
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-        }));
+        })));
 
         item(2, 4, new InteractItem(ItemView.of(Material.FURNACE).name("§9Server Verwaltung"), () -> {
             new ServerListInventory(player, ServerFilter.ALL);

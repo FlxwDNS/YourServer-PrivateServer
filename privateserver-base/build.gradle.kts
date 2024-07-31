@@ -11,6 +11,6 @@ dependencies {
     implementation(project(":privateserver-api"))
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+tasks.withType<Jar> {
+    archiveFileName.set("easycloudservice.jar")
 }

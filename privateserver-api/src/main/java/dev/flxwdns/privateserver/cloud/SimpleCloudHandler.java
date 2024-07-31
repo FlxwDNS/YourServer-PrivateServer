@@ -22,6 +22,7 @@ public class SimpleCloudHandler implements CloudHandler, IListener {
     public void handle(CloudServiceUnregisteredEvent event) {
         System.out.println("Service " + event.getCloudService().getDisplayName() + " has been unregistered");
         if(shutdownConsumer != null) {
+            System.out.println("Consumer has been called");
             shutdownConsumer.accept(event.getCloudService().getDisplayName());
         }
     }
@@ -43,9 +44,9 @@ public class SimpleCloudHandler implements CloudHandler, IListener {
         var startConfiguration = serviceGroup.createStartConfiguration()
                 .setMaxMemory(512)
                 .setMaxPlayers(5)
-                .setTemplate(template)
-                .setServiceNumber(1);
+                .setTemplate(template);
         var service = startConfiguration.startService().get();
+
         if(savePath.resolve(serverId.toString()).toFile().exists()) {
             FileUtils.copyDirectory(savePath.resolve(serverId.toString()).toFile(), savePath.getParent().resolve("tmp").resolve(service.getDisplayName()).toFile());
         } else {
