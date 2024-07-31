@@ -11,23 +11,31 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class EveryPluginInventory extends PageableView<CustomPlugin> {
     private static List<CustomPlugin> getPlugins() {
         var config = PrivateServer.instance().getConfig();
-        return config.getStringList("plugins.every")
-                .stream()
-                .map(it -> new CustomPlugin(
-                        it,
-                        Material.valueOf(config.getString("plugins.every." + it + ".material")),
-                        config.getString("plugins.every." + it + ".description"),
-                        config.getString("plugins.every." + it + ".id")
-                        )).toList();
+
+        List<CustomPlugin> plugins = new ArrayList<>();
+        for (Object s : config.getList("plugins.every")) {
+            var name = s.toString().split("=")[0].replace("{", "");
+            var vars =  s.toString().split("=")[1].replace("{", "").replace("}", "").split(",");
+
+            var material = vars[0];
+            var description = vars[1];
+            var id = vars[2];
+
+            plugins.add(new CustomPlugin(name, Material.valueOf(material), description, id));
+        }
+
+        return plugins;
     }
 
     public EveryPluginInventory(Player player) {
-        super(player, Component.text("§7Plugins"), 3, false, getPlugins());
+        super(player, Component.text("§7Plugins"), 6, false, getPlugins());
 
         for (int i = 0; i < 5; i++) {
             placeHolder(1 + i, 8);

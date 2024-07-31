@@ -5,6 +5,7 @@ import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
+import dev.flxwdns.privateserver.inventory.server.plugins.list.EveryPluginInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -21,6 +22,7 @@ public final class PluginInventory extends SingletonView {
         placeHolder(3);
 
         item(2, 1, new InteractItem(ItemView.of(Material.COMMAND_BLOCK).name("§eAlle Plugins"), () -> {
+            new EveryPluginInventory(player);
         }));
         item(2, 2, new InteractItem(ItemView.of(Material.BEACON).name("§eMiniGames"), () -> {
         }));

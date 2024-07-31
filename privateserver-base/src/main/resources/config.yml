@@ -21,22 +21,22 @@ domains:
 # if you provide spigotmc, the plugin will be downloaded from spigotmc with the latest version
 plugins:
     every:
-        UniversalTeleportAnchor:
-            material: COMPASS
-            description: "Erstelle Anker um dich in der Welt zu teleportieren."
-            id: "118462"
-        FastAsyncWorldEdit:
-            material: WOODEN_AXE
-            description: "Willst du schnell und effizient bauen? Dann ist FastAsyncWorldEdit genau das richtige für dich!"
-            id: "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-865.jar"
-        RockPaperScissors:
-            material: PAPER
-            description: "Lust gegen andere Spieler zu verlieren? Spiele doch mal Stein, Schere, Papier!"
-            id: "118164"
+        - UniversalTeleportAnchor:
+            - "COMPASS"                                               # <--- Material
+            - "Erstelle Anker um dich in der Welt zu teleportieren."  # <--- Description
+            - "118462"                                                # <--- SpigotMC ID or direct link
+        - FastAsyncWorldEdit:
+            - "WOODEN_AXE"
+            - "Willst du schnell und effizient bauen? Dann ist FastAsyncWorldEdit genau das richtige für dich!"
+            - "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-865.jar"
+        - RockPaperScissors:
+            - "PAPER"
+            - "Lust gegen andere Spieler zu verlieren? Spiele doch mal Stein, Schere, Papier!"
+            - "118164"
     games:
-        SkyWarsReloaded:
-            material: DIAMOND_SWORD
-            description: "Erstelle deine eigenen Epischen Luft schlachten."
+        - SkyWarsReloaded:
+            - "DIAMOND_SWORD"
+            - "Erstelle deine eigenen Epischen Luft schlachten."
             # If you are using spigotmc this is the id:
             # https://www.spigotmc.org/resources/skywarsreloaded-updated-recoded-1-20-2-support-new-features-supports-all-mc-versions.69436 <-------
-            id: "69436"
+            - "69436"
