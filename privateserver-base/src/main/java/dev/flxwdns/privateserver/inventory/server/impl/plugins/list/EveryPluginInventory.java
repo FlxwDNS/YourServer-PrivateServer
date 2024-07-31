@@ -1,4 +1,4 @@
-package dev.flxwdns.privateserver.inventory.server.plugins.list;
+package dev.flxwdns.privateserver.inventory.server.impl.plugins.list;
 
 import de.flxwdev.ascan.inventory.PageableView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
@@ -26,7 +26,7 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
             var vars =  s.toString().split("=")[1].replace("[", "").replace("]", "").replace("}", "").split(",");
 
             var material = vars[0];
-            var id = vars[1];
+            var id = vars[1].substring(1);
             var description = vars[2].substring(1);
 
             plugins.add(new CustomPlugin(name, Material.valueOf(material), description, id));
@@ -55,7 +55,7 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
                 Component.empty(),
                 Component.text("§7" + plugin.description()),
                 Component.empty(),
-                Component.text("§7ID: §e" + plugin.id()),
+                Component.text("§7ID: §e" + (plugin.id().startsWith("https://") ? "Nicht vorhanden" : plugin.id())),
                 Component.empty(),
                 Component.text("§eKlick §8» §7Download§8.")
         )), () -> {

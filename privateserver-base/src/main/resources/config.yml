@@ -12,6 +12,8 @@
 # cloudnetv3, cloudnetv4, simplecloud
 cloud-handler: "simplecloud"
 
+prefix: "§8» §6§lYourServer §8| §7"
+
 # Server
 domains:
     - "sympta.de"
@@ -27,16 +29,16 @@ plugins:
             - "Erstelle Anker um dich in der Welt zu teleportieren."  # <--- Description
         - FastAsyncWorldEdit:
             - "WOODEN_AXE"
-            - "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-865.jar"
-            - "§7Willst du schnell und effizient bauen?\nDann ist FastAsyncWorldEdit genau das richtige für dich!"
+            - "https://ci.athion.net/job/FastAsyncWorldEdit/866/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-866.jar"
+            - "§7Bau schnell und Effizient."
         - RockPaperScissors:
             - "PAPER"
             - "118164"
-            - "§7Lust gegen andere Spieler zu verlieren?\n§7Spiele doch mal Stein, Schere, Papier!"
+            - "§7SteinScherePapier gegen deine Freunde kann nicht schaden."
     games:
         - SkyWarsReloaded:
             - "DIAMOND_SWORD"
             # If you are using spigotmc this is the id:
             # https://www.spigotmc.org/resources/skywarsreloaded-updated-recoded-1-20-2-support-new-features-supports-all-mc-versions.69436 <-------
             - "69436"
-            - "Erstelle deine eigenen Epischen Luft schlachten."
+            - "Erstelle deine eigene Epische Luft schlachten."

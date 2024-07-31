@@ -5,6 +5,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://repo.codemc.io/repository/maven-snapshots/")
 }
 
 dependencies {

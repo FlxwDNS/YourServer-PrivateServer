@@ -20,7 +20,7 @@ public final class CustomPlugin {
     private final String id;
 
     private Path path(UUID serverUniqueId) {
-        return Path.of("../../").resolve("yourserver-saves").resolve(serverUniqueId.toString()).resolve("plugins").resolve(name + "(#" + id + ")");
+        return Path.of("../../").resolve("yourserver-saves").resolve(serverUniqueId.toString()).resolve("plugins").resolve(name + "(#" + id + ").jar");
     }
 
     public boolean isInstalled(UUID serverUniqueId) {

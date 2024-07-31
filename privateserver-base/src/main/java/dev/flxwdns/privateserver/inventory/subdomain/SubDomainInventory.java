@@ -6,7 +6,7 @@ import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainSelectInventory;
-import dev.flxwdns.privateserver.sign.SignBuilder;
+import dev.flxwdns.privateserver.sign.AnvilBuilder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -41,7 +41,7 @@ public final class SubDomainInventory extends SingletonView {
                 Component.empty(),
                 Component.text("§eKlick §8» §7Übertragen")
         )), () -> {
-            SignBuilder.buildSign(player, name -> {
+            AnvilBuilder.build(player, name -> {
                 // TODO
             }, PrivateServer.instance());
         }));

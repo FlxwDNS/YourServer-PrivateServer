@@ -1,11 +1,11 @@
-package dev.flxwdns.privateserver.inventory.server.plugins;
+package dev.flxwdns.privateserver.inventory.server.impl.plugins;
 
 import de.flxwdev.ascan.inventory.SingletonView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
-import dev.flxwdns.privateserver.inventory.server.plugins.list.EveryPluginInventory;
+import dev.flxwdns.privateserver.inventory.server.impl.plugins.list.EveryPluginInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

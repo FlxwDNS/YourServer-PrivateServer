@@ -5,12 +5,10 @@ import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
-import dev.flxwdns.privateserver.inventory.server.plugins.PluginInventory;
-import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
-import dev.flxwdns.privateserver.sign.SignBuilder;
+import dev.flxwdns.privateserver.inventory.server.impl.plugins.PluginInventory;
+import dev.flxwdns.privateserver.sign.AnvilBuilder;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -107,7 +105,7 @@ public final class ServerInventory extends SingletonView {
                 "§7",
                 "§eKlick §8» §7Name setzen§8."
         )), () -> {
-            SignBuilder.buildSign(player, name -> {
+            AnvilBuilder.build(player, name -> {
                 var user = PrivateServer.instance().userHandler().user(player);
                 server.name(name);
                 user.updateServer(server);
@@ -143,7 +141,7 @@ public final class ServerInventory extends SingletonView {
                 "§7",
                 "§eKlick §8» §7Beschreibung ändern§8."
         )), () -> {
-            SignBuilder.buildSign(player, description -> {
+            AnvilBuilder.build(player, description -> {
                 var user = PrivateServer.instance().userHandler().user(player);
                 server.description(description);
                 user.updateServer(server);
@@ -153,6 +151,15 @@ public final class ServerInventory extends SingletonView {
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
                 new ServerInventory(player, server);
             }, PrivateServer.instance());
+        }));
+
+        item(new InteractItem(new ItemView(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzk0YTNkNWQ5MmQ1YTYwNjQ2NzAzYmU5NWNiYzRmMjdiZmMyNDUwNjc1MGU5ZGIyYWJlMzRhZTI3MjIxOWMwMyJ9fX0=")).name("§eWebinterface").rawList(List.of(
+                "§7",
+                "§7Du brauchst noch mehr freiheit§8?",
+                "§7Sei gespannt auf das Webinterface§8.",
+                "§7",
+                "§c§lBald verfügbar"
+        )), () -> {
         }));
 
         item(new InteractItem(new ItemView(Material.ANVIL).name("§eEinstellungen").rawList(List.of(

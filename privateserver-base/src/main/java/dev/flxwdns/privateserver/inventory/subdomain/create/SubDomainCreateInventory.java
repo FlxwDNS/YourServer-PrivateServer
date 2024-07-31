@@ -6,15 +6,13 @@ import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
-import dev.flxwdns.privateserver.sign.SignBuilder;
+import dev.flxwdns.privateserver.sign.AnvilBuilder;
 import dev.flxwdns.privateserver.user.impl.Domain;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
 import java.util.List;
 
 public final class SubDomainCreateInventory extends SingletonView {
@@ -44,7 +42,7 @@ public final class SubDomainCreateInventory extends SingletonView {
                 Component.text("§7Die Subdomain wird an die Domain angehängt§8."),
                 Component.empty(),
                 Component.text("§eKlick §8» §7Subdomain auswählen")
-        )), () -> SignBuilder.buildSign(player, name -> new SubDomainCreateInventory(player, domain, name), PrivateServer.instance())));
+        )), () -> AnvilBuilder.build(player, name -> new SubDomainCreateInventory(player, domain, name), PrivateServer.instance())));
 
         item(2, 6, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cZurück"), () -> {
             new SubDomainListInventory(player);
