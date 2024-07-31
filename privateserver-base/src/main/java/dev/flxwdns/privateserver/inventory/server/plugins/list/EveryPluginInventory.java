@@ -22,7 +22,7 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
         List<CustomPlugin> plugins = new ArrayList<>();
         for (Object s : config.getList("plugins.every")) {
             var name = s.toString().split("=")[0].replace("{", "");
-            var vars =  s.toString().split("=")[1].replace("{", "").replace("}", "").split(",");
+            var vars =  s.toString().split("=")[1].replace("[", "").replace("]", "").replace("}", "").split(",");
 
             var material = vars[0];
             var description = vars[1];
