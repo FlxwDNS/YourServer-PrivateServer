@@ -23,20 +23,20 @@ plugins:
     every:
         - UniversalTeleportAnchor:
             - "COMPASS"                                               # <--- Material
-            - "Erstelle Anker um dich in der Welt zu teleportieren."  # <--- Description
             - "118462"                                                # <--- SpigotMC ID or direct link
+            - "Erstelle Anker um dich in der Welt zu teleportieren."  # <--- Description
         - FastAsyncWorldEdit:
             - "WOODEN_AXE"
-            - "Willst du schnell und effizient bauen? Dann ist FastAsyncWorldEdit genau das richtige für dich!"
             - "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-865.jar"
+            - "§7Willst du schnell und effizient bauen?\nDann ist FastAsyncWorldEdit genau das richtige für dich!"
         - RockPaperScissors:
             - "PAPER"
-            - "Lust gegen andere Spieler zu verlieren? Spiele doch mal Stein, Schere, Papier!"
             - "118164"
+            - "§7Lust gegen andere Spieler zu verlieren?\n§7Spiele doch mal Stein, Schere, Papier!"
     games:
         - SkyWarsReloaded:
             - "DIAMOND_SWORD"
-            - "Erstelle deine eigenen Epischen Luft schlachten."
             # If you are using spigotmc this is the id:
             # https://www.spigotmc.org/resources/skywarsreloaded-updated-recoded-1-20-2-support-new-features-supports-all-mc-versions.69436 <-------
             - "69436"
+            - "Erstelle deine eigenen Epischen Luft schlachten."

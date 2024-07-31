@@ -5,6 +5,7 @@ import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.plugin.CustomPlugin;
+import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -25,17 +26,19 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
             var vars =  s.toString().split("=")[1].replace("[", "").replace("]", "").replace("}", "").split(",");
 
             var material = vars[0];
-            var description = vars[1];
-            var id = vars[2];
+            var id = vars[1];
+            var description = vars[2].substring(1);
 
             plugins.add(new CustomPlugin(name, Material.valueOf(material), description, id));
         }
 
         return plugins;
     }
+    private final Server server;
 
-    public EveryPluginInventory(Player player) {
+    public EveryPluginInventory(Player player, Server server) {
         super(player, Component.text("§7Plugins"), 6, false, getPlugins());
+        this.server = server;
 
         for (int i = 0; i < 5; i++) {
             placeHolder(1 + i, 8);
@@ -56,7 +59,7 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
                 Component.empty(),
                 Component.text("§eKlick §8» §7Download§8.")
         )), () -> {
-            plugin.download(Path.of(""));
+            plugin.download(this.server.serverUniqueId());
         });
     }
 }

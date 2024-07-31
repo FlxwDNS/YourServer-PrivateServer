@@ -22,7 +22,7 @@ public final class PluginInventory extends SingletonView {
         placeHolder(3);
 
         item(2, 1, new InteractItem(ItemView.of(Material.COMMAND_BLOCK).name("§eAlle Plugins"), () -> {
-            new EveryPluginInventory(player);
+            new EveryPluginInventory(player, server);
         }));
         item(2, 2, new InteractItem(ItemView.of(Material.BEACON).name("§eMiniGames"), () -> {
         }));
