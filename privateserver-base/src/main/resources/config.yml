@@ -17,3 +17,24 @@ domains:
     - "sympta.de"
     - "example.de"
 
+# Plugins (define spigotmc url or direct link)
+# if you provide spigotmc, the plugin will be downloaded from spigotmc with the latest version
+plugins:
+    all:
+        UniversalTeleportAnchor:
+            material: COMPASS
+            description: "Erstelle Anker um dich in der Welt zu teleportieren."
+            url: "https://www.spigotmc.org/resources/1-20-1-21-universalteleportanchor❤%EF%B8%8Fcross-world-teleport-visual-ui-✅-vault-support✅-customizable✅.118462/"
+        FastAsyncWorldEdit:
+            material: WOODEN_AXE
+            description: "Willst du schnell und effizient bauen? Dann ist FastAsyncWorldEdit genau das richtige für dich!"
+            url: "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/artifact/artifacts/FastAsyncWorldEdit-Bukkit-2.11.1-SNAPSHOT-865.jar"
+        RockPaperScissors:
+            material: PAPER
+            description: "Lust gegen andere Spieler zu verlieren? Spiele doch mal Stein, Schere, Papier!"
+            url: "https://www.spigotmc.org/resources/rock-paper-scissors-simple-gambling-game.118164/"
+    games:
+        SkyWarsReloaded:
+            material: DIAMOND_SWORD
+            description: "Erstelle deine eigenen Epischen Luft schlachten."
+            url: "https://www.spigotmc.org/resources/skywarsreloaded-updated-recoded-1-20-2-support-new-features-supports-all-mc-versions.69436/"

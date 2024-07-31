@@ -29,6 +29,6 @@ public final class ConfirmInventory extends SingletonView {
         }));
 
         player.openInventory(this.inventory());
-        player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f, 1f);
+        player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1f, 2f);
     }
 }
