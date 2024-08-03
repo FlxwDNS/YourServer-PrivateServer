@@ -26,8 +26,9 @@ public final class ServerListInventory {
         List<Server> list = new ArrayList<>();
         if (filter.equals(ServerFilter.YOURS)) {
             list.addAll(PrivateServer.instance().userHandler().user(player).servers());
+        } else {
+            PrivateServer.instance().userHandler().repository().query().find().stream().toList().forEach(it -> list.addAll(it.servers()));
         }
-        PrivateServer.instance().userHandler().repository().query().find().stream().toList().forEach(it -> list.addAll(it.servers()));
 
         var gui = PagedGui.items()
                 .setStructure(
@@ -40,7 +41,17 @@ public final class ServerListInventory {
                 )
                 .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                 .addIngredient('#', new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§7 "))
-                .addIngredient('F', new SimpleItem(new ItemBuilder(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDFiNjJkYjVjMGEzZmExZWY0NDFiZjcwNDRmNTExYmU1OGJlZGY5YjY3MzE4NTNlNTBjZTkwY2Q0NGZiNjkifX19")).setDisplayName("§7Filter"), click -> {
+                .addIngredient('F', new SimpleItem(new ItemBuilder(Material.ITEM_FRAME)
+                        .setDisplayName("§7Filter")
+                        .setLore(List.of(
+                                WrappedComponent.empty(),
+                                WrappedComponent.of("§7Online".replace("§7", filter.equals(ServerFilter.ONLINE) ? "§a" : "§7")),
+                                WrappedComponent.of("§7Offline".replace("§7", filter.equals(ServerFilter.OFFLINE) ? "§a" : "§7")),
+                                WrappedComponent.of("§7Alle".replace("§7", filter.equals(ServerFilter.ALL) ? "§a" : "§7")),
+                                WrappedComponent.of("§7Deine".replace("§7", filter.equals(ServerFilter.YOURS) ? "§a" : "§7")),
+                                WrappedComponent.empty(),
+                                WrappedComponent.of("§eKlick §8» §7Filter ändern")
+                        )), click -> {
                     if (filter.equals(ServerFilter.ALL)) {
                         new ServerListInventory(player, ServerFilter.YOURS);
                     } else if (filter.equals(ServerFilter.YOURS)) {
