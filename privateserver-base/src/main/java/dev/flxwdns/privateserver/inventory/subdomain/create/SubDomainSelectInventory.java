@@ -1,23 +1,18 @@
 package dev.flxwdns.privateserver.inventory.subdomain.create;
 
-import de.flxwdev.ascan.inventory.PageableView;
-import de.flxwdev.ascan.inventory.SingletonView;
-import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
-import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.BackItem;
 import dev.flxwdns.privateserver.inventory.ForwardItem;
 import dev.flxwdns.privateserver.inventory.WrappedComponent;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.PagedGui;
+import xyz.xenondevs.invui.gui.structure.Markers;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
 import xyz.xenondevs.invui.item.impl.SimpleItem;
 import xyz.xenondevs.invui.window.Window;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public final class SubDomainSelectInventory {
@@ -32,6 +27,7 @@ public final class SubDomainSelectInventory {
                         "# x x x x x x x #",
                         "# # < # # # > # #"
                 )
+                .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
                 .addIngredient('#', ItemView.of(Material.GRAY_STAINED_GLASS_PANE).name("§7 "))
                 .addIngredient('<', new BackItem())
                 .addIngredient('>', new ForwardItem())
