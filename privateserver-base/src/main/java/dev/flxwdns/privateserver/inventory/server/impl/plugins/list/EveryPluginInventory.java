@@ -3,7 +3,10 @@ package dev.flxwdns.privateserver.inventory.server.impl.plugins.list;
 import de.flxwdev.ascan.inventory.PageableView;
 import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
+import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
+import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
+import dev.flxwdns.privateserver.inventory.server.impl.plugins.PluginInventory;
 import dev.flxwdns.privateserver.plugin.CustomPlugin;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
@@ -44,6 +47,10 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
             placeHolder(1 + i, 8);
         }
         placeHolder(6);
+
+        item(3, 8, new InteractItem(ItemView.of(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cZurück"), () -> {
+            new PluginInventory(player, server);
+        }));
 
         open(player);
         player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1f, 1f);

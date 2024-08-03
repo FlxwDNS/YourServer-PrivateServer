@@ -13,9 +13,11 @@ allprojects {
         maven("https://jitpack.io")
         maven("https://repo.papermc.io/repository/maven-public/")
         maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://repo.xenondevs.xyz/releases")
     }
 
     dependencies {
+        "implementation"("xyz.xenondevs.invui:invui:1.33")
         "implementation"("com.github.FlxwDNS.AscanAPI:ascan-view:ad5d86f8fa")
         "implementation"("com.github.FlxwDNS.AscanAPI:ascan-common:ad5d86f8fa")
 

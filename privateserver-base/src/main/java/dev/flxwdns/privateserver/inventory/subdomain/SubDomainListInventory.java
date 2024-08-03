@@ -1,21 +1,47 @@
 package dev.flxwdns.privateserver.inventory.subdomain;
 
-import de.flxwdev.ascan.inventory.PageableView;
-import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
-import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.HomeInventory;
-import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainCreateInventory;
-import dev.flxwdns.privateserver.user.impl.Domain;
-import net.kyori.adventure.text.Component;
+import dev.flxwdns.privateserver.inventory.BackItem;
+import dev.flxwdns.privateserver.inventory.ForwardItem;
+import dev.flxwdns.privateserver.inventory.WrappedComponent;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import xyz.xenondevs.invui.gui.PagedGui;
+import xyz.xenondevs.invui.gui.structure.Markers;
+import xyz.xenondevs.invui.item.builder.ItemBuilder;
+import xyz.xenondevs.invui.item.impl.SimpleItem;
+import xyz.xenondevs.invui.window.Window;
 
-public final class SubDomainListInventory extends PageableView<Domain> {
+import java.util.stream.Collectors;
+
+public final class SubDomainListInventory {
 
     public SubDomainListInventory(Player player) {
+        var gui = PagedGui.items()
+                .setStructure(
+                        "# # # # # # # # #",
+                        "# x x x x x # R #",
+                        "# x x x x x # # #",
+                        "# x x x x x # # #",
+                        "# x x x x x # Z #",
+                        "# # < # > # # # #"
+                )
+                .addIngredient('x', Markers.CONTENT_LIST_SLOT_HORIZONTAL)
+                .addIngredient('#', ItemView.of(Material.GRAY_STAINED_GLASS_PANE).name("§7 "))
+                .addIngredient('<', new BackItem())
+                .addIngredient('>', new ForwardItem())
+                .setContent(PrivateServer.instance().userHandler().user(player).domains()
+                        .stream()
+                        .map(it -> new SimpleItem(new ItemBuilder(Material.PAPER).setDisplayName("§e" + it.domain()), click -> {
+                            new SubDomainInventory(player, it);
+                        })).collect(Collectors.toList()))
+                .build();
+
+        Window.single().setViewer(player).setTitle(WrappedComponent.of("§dSubdomains")).setGui(gui).build().open();
+    }
+
+    /*public SubDomainListInventory(Player player) {
         super(player, Component.text("§dSubdomains"), 6, false, PrivateServer.instance().userHandler().user(player).domains());
 
         placeHolder(1);
@@ -48,7 +74,7 @@ public final class SubDomainListInventory extends PageableView<Domain> {
     @Override
     public InteractItem constructItem(Domain domain) {
         return new InteractItem(ItemView.of(Material.PAPER).name("§e" + domain.domain()), () -> {
-            new SubDomainInventory(this.player(), domain.domain(), domain.connectedServer());
+            new SubDomainInventory(this.player(), domain);
         });
-    }
+    }*/
 }

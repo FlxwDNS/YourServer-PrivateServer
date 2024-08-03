@@ -29,11 +29,12 @@ public final class AnvilBuilder {
             }
             if (snapshot.getText().isEmpty()) {
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
+                player.closeInventory();
                 return Collections.emptyList();
             }
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
             Bukkit.getScheduler().runTaskLater(plugin, () -> consumer.accept(snapshot.getText()), 5L);
             return Collections.emptyList();
-        }).itemRight(item).plugin(plugin).open(player);
+        }).itemLeft(new ItemStack(Material.BARRIER)).text("§6Input").interactableSlots(2).plugin(plugin).open(player);
     }
 }
