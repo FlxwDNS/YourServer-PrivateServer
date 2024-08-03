@@ -1,19 +1,9 @@
 package dev.flxwdns.privateserver.inventory.subdomain;
 
-import de.flxwdev.ascan.inventory.SingletonView;
-import de.flxwdev.ascan.inventory.item.InteractItem;
-import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
-import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.WrappedComponent;
-import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
-import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
-import dev.flxwdns.privateserver.inventory.server.utils.ConfirmInventory;
 import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainSelectInventory;
-import dev.flxwdns.privateserver.sign.AnvilBuilder;
 import dev.flxwdns.privateserver.user.impl.Domain;
-import dev.flxwdns.privateserver.user.impl.Server;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

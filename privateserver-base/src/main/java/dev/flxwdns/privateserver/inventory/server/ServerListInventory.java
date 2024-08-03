@@ -13,13 +13,26 @@ import dev.flxwdns.privateserver.utils.NameFetcher;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import xyz.xenondevs.invui.gui.PagedGui;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ServerListInventory extends PageableView<Server> {
-    private static List<Server> getServers(ServerFilter filter, Player player) {
+public final class ServerListInventory {
+    public ServerListInventory(Player player, ServerFilter filter) {
+        var gui = PagedGui.items()
+                .setStructure(
+                        "x x x x x x x x #",
+                        "x x x x x x x x F",
+                        "x x x x x x x x #",
+                        "x x x x x x x x Z",
+                        "x x x x x x x x #",
+                        "# # # < # > # # #"
+                )
+    }
+
+    /*private static List<Server> getServers(ServerFilter filter, Player player) {
         if (filter.equals(ServerFilter.YOURS)) {
             return PrivateServer.instance().userHandler().user(player).servers();
         }
@@ -79,5 +92,5 @@ public final class ServerListInventory extends PageableView<Server> {
                 this.player().sendMessage("CONNECT!");
             }
         });
-    }
+    }*/
 }
