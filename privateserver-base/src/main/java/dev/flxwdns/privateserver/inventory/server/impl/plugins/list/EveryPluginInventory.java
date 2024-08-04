@@ -10,6 +10,7 @@ import dev.flxwdns.privateserver.inventory.server.impl.plugins.PluginInventory;
 import dev.flxwdns.privateserver.plugin.CustomPlugin;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -58,6 +59,17 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
 
     @Override
     public InteractItem constructItem(CustomPlugin plugin) {
+        if(plugin.isInstalled(this.server.serverUniqueId())) {
+            return new InteractItem(ItemView.of(plugin.material()).name("§a" + plugin.name()).glow().list(List.of(
+                    Component.empty(),
+                    Component.text("§7" + plugin.description()),
+                    Component.empty(),
+                    Component.text("§7ID: §e" + (plugin.id().startsWith("https://") ? "Nicht vorhanden" : plugin.id())),
+                    Component.empty(),
+                    Component.text("§a§lInstalliert")
+            )), () -> {});
+        }
+
         return new InteractItem(ItemView.of(plugin.material()).name("§e" + plugin.name()).list(List.of(
                 Component.empty(),
                 Component.text("§7" + plugin.description()),
@@ -66,7 +78,12 @@ public final class EveryPluginInventory extends PageableView<CustomPlugin> {
                 Component.empty(),
                 Component.text("§eKlick §8» §7Download§8.")
         )), () -> {
-            plugin.download(this.server.serverUniqueId());
+            Server server = this.server;
+            new Thread(() -> plugin.download(server.serverUniqueId())).start();
+
+            new EveryPluginInventory(this.player(), this.server);
+            this.player().sendMessage("§aDas Plugin wurde erfolgreich heruntergeladen.");
+            this.player().playSound(this.player().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
         });
     }
 }

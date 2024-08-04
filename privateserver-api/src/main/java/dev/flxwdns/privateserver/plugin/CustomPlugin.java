@@ -20,6 +20,9 @@ public final class CustomPlugin {
     private final String id;
 
     private Path path(UUID serverUniqueId) {
+        if(this.id.startsWith("https://") || this.id.contains(".")) {
+            return Path.of("../../").resolve("yourserver-saves").resolve(serverUniqueId.toString()).resolve("plugins").resolve(name + ".jar");
+        }
         return Path.of("../../").resolve("yourserver-saves").resolve(serverUniqueId.toString()).resolve("plugins").resolve(name + "(#" + id + ").jar");
     }
 
@@ -33,12 +36,17 @@ public final class CustomPlugin {
         path.toFile().mkdirs();
 
         if(!id.startsWith("https://") && !id.contains(".")) {
-            var in = new URL("https://api.spiget.org/v2/resources/" + this.id + "/download").openStream();
-            Files.copy(in, path(serverUniqueId), StandardCopyOption.REPLACE_EXISTING);
+            var url = new URL("https://api.spiget.org/v2/resources/" + this.id + "/download");
+            try (var in = url.openStream()) {
+                Files.copy(in, path(serverUniqueId), StandardCopyOption.REPLACE_EXISTING);
+            }
             return;
         }
         if(id.endsWith(".jar")) {
-            Files.copy(new URL(this.id).openStream(), path(serverUniqueId), StandardCopyOption.REPLACE_EXISTING);
+            var url = new URL(this.id);
+            try (var in = url.openStream()) {
+                Files.copy(in, path(serverUniqueId), StandardCopyOption.REPLACE_EXISTING);
+            }
             return;
         }
         throw new RuntimeException("Invalid ID: " + id + " (must be a SpigotMC resource ID or a direct JAR download URL)");
