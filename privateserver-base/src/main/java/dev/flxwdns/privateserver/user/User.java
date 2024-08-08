@@ -22,4 +22,9 @@ public final class User {
         this.servers.removeIf(it -> it.serverUniqueId().equals(server.serverUniqueId()));
         this.servers.add(server);
     }
+
+    public void updateDomain(Domain domain) {
+        this.domains.removeIf(it -> it.domain().equals(domain.domain()));
+        this.domains.add(domain);
+    }
 }
