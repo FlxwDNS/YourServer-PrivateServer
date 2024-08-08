@@ -10,7 +10,9 @@ import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
 import dev.flxwdns.privateserver.plugin.CustomPlugin;
 import dev.flxwdns.privateserver.user.impl.Server;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import xyz.xenondevs.invui.gui.PagedGui;
 import xyz.xenondevs.invui.gui.structure.Markers;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
@@ -57,19 +59,31 @@ public final class EveryPluginInventory {
                 }))
                 .addIngredient('<', new BackItem())
                 .addIngredient('>', new ForwardItem())
-                .setContent(this.getPlugins().stream().map(it -> new SimpleItem(new ItemBuilder(it.material()).setDisplayName("§e" + it.name()).setLegacyLore(List.of(
-                        "§7",
-                        "§7" + it.description(),
-                        "§7",
-                        "§7ID: §e" + (it.id().startsWith("https://") ? "Nicht vorhanden" : it.id()),
-                        "§7",
-                        "§eKlick §8» §7Download§8."
-                )), click -> {
-                    new Thread(() -> it.download(server.serverUniqueId())).start();
-                    new ServerInventory(player, server);
-                    player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aDas Plugin wurde erfolgreich heruntergeladen.");
-                    player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
-                })).collect(Collectors.toList()))
+                .setContent(this.getPlugins().stream().map(it -> {
+                    if(it.isInstalled(server.serverUniqueId())) {
+                        return new SimpleItem(new ItemBuilder(it.material()).setDisplayName("§a" + it.name()).setLegacyLore(List.of(
+                                "§7",
+                                "§7" + it.description(),
+                                "§7",
+                                "§7ID: §e" + (it.id().startsWith("https://") ? "Nicht vorhanden" : it.id()),
+                                "§7",
+                                "§a§lInstalliert§8."
+                        )).addEnchantment(Enchantment.MENDING, 1, true).addItemFlags(ItemFlag.HIDE_ENCHANTS));
+                    }
+                    return new SimpleItem(new ItemBuilder(it.material()).setDisplayName("§e" + it.name()).setLegacyLore(List.of(
+                            "§7",
+                            "§7" + it.description(),
+                            "§7",
+                            "§7ID: §e" + (it.id().startsWith("https://") ? "Nicht vorhanden" : it.id()),
+                            "§7",
+                            "§eKlick §8» §7Download§8."
+                    )), click -> {
+                        new Thread(() -> it.download(server.serverUniqueId())).start();
+                        new ServerInventory(player, server);
+                        player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aDas Plugin wurde erfolgreich heruntergeladen.");
+                        player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+                    });
+                }).collect(Collectors.toList()))
                 .build();
 
         Window.single().setViewer(player).setTitle(WrappedComponent.of("§7Plugins")).setGui(gui).build().open();
