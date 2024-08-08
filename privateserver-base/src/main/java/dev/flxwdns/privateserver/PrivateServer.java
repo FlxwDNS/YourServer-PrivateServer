@@ -8,6 +8,7 @@ import dev.flxwdns.privateserver.cloud.CloudHandler;
 import dev.flxwdns.privateserver.cloud.SimpleCloudHandler;
 import dev.flxwdns.privateserver.command.PrivateServerCommand;
 import dev.flxwdns.privateserver.listener.PlayerJoinListener;
+import dev.flxwdns.privateserver.listener.PlayerLoginListener;
 import dev.flxwdns.privateserver.user.User;
 import dev.flxwdns.privateserver.user.UserHandler;
 import dev.flxwdns.privateserver.user.impl.Server;
@@ -72,6 +73,7 @@ public final class PrivateServer extends JavaPlugin {
         );
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), this);
 
         this.getCommand("privateserver").setExecutor(new PrivateServerCommand());
     }

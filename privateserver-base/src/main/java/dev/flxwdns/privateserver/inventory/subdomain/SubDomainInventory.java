@@ -38,7 +38,7 @@ public final class SubDomainInventory {
                         )), click -> new SubDomainSelectInventory(player)))
                 .addIngredient('U', new SimpleItem(new ItemBuilder(Material.ENDER_PEARL).setDisplayName("§5Subdomain übertragen")
                         .setLore(List.of(WrappedComponent.empty(),
-                                WrappedComponent.of("§cSobald die Subdomain gelöscht wird§8,"),
+                                WrappedComponent.of("§cSobald die Subdomain übertragen wird§8,"),
                                 WrappedComponent.of("§ckannst du diesen Vorgang nicht wiederrufen§8!"),
                                 WrappedComponent.empty(),
                                 WrappedComponent.of("§eKlick §8» §7Übertragen")
