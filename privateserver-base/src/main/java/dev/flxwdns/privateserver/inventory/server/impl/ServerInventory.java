@@ -76,7 +76,7 @@ public final class ServerInventory extends SingletonView {
                 "§7Denk dran§8, §7jeder Server brauch RAM§8.",
                 "§7",
                 "§eKlick §8» §7RAM setzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cNot implemented yet.")));
 
         item(5, 1, new InteractItem(new ItemView(Material.AMETHYST_SHARD).name("§eSlots").rawList(List.of(
                 "§7",
@@ -87,7 +87,7 @@ public final class ServerInventory extends SingletonView {
                 "§7gleichzeitig auf deinem Server spielen können§8.",
                 "§7",
                 "§eKlick §8» §7RAM setzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cNot implemented yet.")));
 
         item(new InteractItem(new ItemView(Material.ITEM_FRAME).name("§eIcon setzen").rawList(List.of(
                 "§7",
@@ -111,7 +111,7 @@ public final class ServerInventory extends SingletonView {
                 user.updateServer(server);
                 PrivateServer.instance().userHandler().update(user);
 
-                player.sendMessage("§aDer Name wurde erfolgreich geändert.");
+                player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aDer Name wurde erfolgreich geändert.");
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
                 new ServerInventory(player, server);
             }, PrivateServer.instance());
@@ -123,7 +123,7 @@ public final class ServerInventory extends SingletonView {
                 "§cDenk dran§8, §cdu verlierst alle Daten§8!",
                 "§7",
                 "§eKlick §8» §7Server löschen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cNot implemented yet.")));
 
         item(new InteractItem(new ItemView(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ5ZDI3MWM1ZGY4NGY4YTNjOGFhNWQxNTQyN2Y2MjgzOTM0MWRhYjUyYzYxOWE1OTg3ZDM4ZmJlMThlNDY0In19fQ==")).name("§cServer zurücksetzen").rawList(List.of(
                 "§7",
@@ -131,7 +131,7 @@ public final class ServerInventory extends SingletonView {
                 "§cDenk dran§8, §cdu verlierst alle Daten§8!",
                 "§7",
                 "§eKlick §8» §7Server zurücksetzen§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cNot implemented yet.")));
 
         item(new InteractItem(new ItemView(Material.BOOK).name("§eBeschreibung").rawList(List.of(
                 "§7Aktuelle Beschreibung §8» §e" + (server.description() == null ? "§7Keine" : server.description()),
@@ -147,7 +147,7 @@ public final class ServerInventory extends SingletonView {
                 user.updateServer(server);
                 PrivateServer.instance().userHandler().update(user);
 
-                player.sendMessage("§aDie Beschreibung wurde erfolgreich geändert.");
+                player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aDie Beschreibung wurde erfolgreich geändert.");
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
                 new ServerInventory(player, server);
             }, PrivateServer.instance());
@@ -168,7 +168,7 @@ public final class ServerInventory extends SingletonView {
                 "§7Hier kann alles mögliche Eingestellt werden§8.",
                 "§7",
                 "§eKlick §8» §7Einstellungen ändern§8."
-        )), () -> player.sendMessage("§cNot implemented yet.")));
+        )), () -> player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cNot implemented yet.")));
 
         item(new InteractItem(new ItemView(Material.COMMAND_BLOCK).name("§ePlugins").rawList(List.of(
                 "§7",
@@ -186,14 +186,14 @@ public final class ServerInventory extends SingletonView {
                 "§eKlick §8» §7Zum Server verbinden§8."
         )), () -> {
             if(server.runningId() == null) {
-                player.sendMessage("§cDer Server ist nicht online.");
+                player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§cDer Server ist nicht online.");
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
                 return;
             }
             player.closeInventory();
             PrivateServer.instance().cloudHandler().connect(player.getUniqueId(), server.runningId());
 
-            player.sendMessage("§aConnecting to server...");
+            player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aConnecting to server...");
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1f, 1f);
         }));
 

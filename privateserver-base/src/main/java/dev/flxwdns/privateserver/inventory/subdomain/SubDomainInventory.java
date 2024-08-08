@@ -1,6 +1,7 @@
 package dev.flxwdns.privateserver.inventory.subdomain;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
+import dev.flxwdns.privateserver.PrivateServer;
 import dev.flxwdns.privateserver.inventory.WrappedComponent;
 import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainSelectInventory;
 import dev.flxwdns.privateserver.user.impl.Domain;
@@ -54,7 +55,7 @@ public final class SubDomainInventory {
                                 WrappedComponent.empty(),
                                 WrappedComponent.of("§eKlick §8» §cLöschen")
                         )), click -> {
-                    player.sendMessage("§aTODO");
+                    player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aTODO");
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                     player.closeInventory();
                 }));
@@ -102,7 +103,7 @@ public final class SubDomainInventory {
                 Component.empty(),
                 Component.text("§eKlick §8» §cLöschen")
         )), () -> {
-            player.sendMessage("§aTODO");
+            player.sendMessage(PrivateServer.instance().getConfig().getString("prefix") + "§aTODO");
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
             player.closeInventory();
         }));
