@@ -18,6 +18,8 @@ import java.util.List;
 public final class SubDomainInventory {
 
     public SubDomainInventory(Player player, Domain domain) {
+        var connectedServer = PrivateServer.instance().userHandler().user(player).servers().stream().filter(it -> it.serverUniqueId().equals(domain.connectedServer())).findFirst().orElse(null);
+
         var gui = Gui.normal()
                 .setStructure(
                         "# # # # # # # # #",
@@ -29,7 +31,7 @@ public final class SubDomainInventory {
                         .setDisplayName("§eSubdomain mit Server verbinden")
                         .setLore(List.of(
                                 WrappedComponent.empty(),
-                                WrappedComponent.of("§7Ausgewählter Server §8» §cNicht ausgewählt"),
+                                WrappedComponent.of("§7Ausgewählter Server §8» §e" + (connectedServer == null ? "§cKein Server" : connectedServer.name())),
                                 WrappedComponent.empty(),
                                 WrappedComponent.of("§7Wähle einen Server aus,"),
                                 WrappedComponent.of("§7um ihn mit der Subdomain zu verbinden§8."),

@@ -1,5 +1,6 @@
 package dev.flxwdns.privateserver.cloud;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -10,6 +11,9 @@ public interface CloudHandler {
     void shutdown(String serverId);
 
     void connect(UUID uniqueId, String serverId);
+    void queueConnect(UUID uniqueId, String serverId);
 
     boolean isRunning(UUID serverId);
+
+    Map<UUID, String> queueConnect();
 }

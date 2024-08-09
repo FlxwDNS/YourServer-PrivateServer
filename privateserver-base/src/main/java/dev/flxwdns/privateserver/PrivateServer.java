@@ -14,9 +14,12 @@ import dev.flxwdns.privateserver.user.UserHandler;
 import dev.flxwdns.privateserver.user.impl.Server;
 import dev.httpmarco.evelon.layer.connection.ConnectionAuthenticationPath;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -76,5 +79,20 @@ public final class PrivateServer extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), this);
 
         this.getCommand("privateserver").setExecutor(new PrivateServerCommand());
+
+        Bukkit.getScheduler().runTaskTimer(PrivateServer.instance(), () -> {
+            this.cloudHandler.queueConnect().forEach((uuid, s) -> {
+                if (Bukkit.getOnlinePlayers().stream().noneMatch(it -> it.getUniqueId().equals(uuid))) this.cloudHandler.queueConnect().remove(uuid);
+
+                var player = Bukkit.getPlayer(uuid);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 1, false, false, false));
+                for (int x = 0; x < 100; x++) {
+                    for (int z = 0; z < 100; z++) {
+                        player.sendBlockChange(player.getLocation().clone().add(x - 50, 0, z - 50), Material.BARRIER.createBlockData());
+                    }
+                }
+                player.sendActionBar(Component.text(this.getConfig().getString("prefix") + " §7Verbinde§8..."));
+            });
+        }, 0, 20);
     }
 }
