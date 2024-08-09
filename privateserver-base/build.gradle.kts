@@ -24,5 +24,5 @@ dependencies {
 }
 
 tasks.withType<Jar> {
-    archiveFileName.set("YourServer-Lobbbyb.jar")
+    archiveFileName.set("YourServer-Lobby.jar")
 }
