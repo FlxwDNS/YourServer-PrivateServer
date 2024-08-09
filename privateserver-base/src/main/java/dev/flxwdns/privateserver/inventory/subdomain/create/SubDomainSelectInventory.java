@@ -2,9 +2,9 @@ package dev.flxwdns.privateserver.inventory.subdomain.create;
 
 import de.flxwdev.ascan.inventory.item.ItemView;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.BackItem;
-import dev.flxwdns.privateserver.inventory.ForwardItem;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
+import dev.flxwdns.privateserver.inventory.impl.BackItem;
+import dev.flxwdns.privateserver.inventory.impl.ForwardItem;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import xyz.xenondevs.invui.gui.PagedGui;

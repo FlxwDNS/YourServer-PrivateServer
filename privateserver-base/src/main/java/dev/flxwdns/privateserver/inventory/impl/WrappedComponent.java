@@ -1,4 +1,4 @@
-package dev.flxwdns.privateserver.inventory;
+package dev.flxwdns.privateserver.inventory.impl;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

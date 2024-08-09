@@ -3,7 +3,6 @@ package dev.flxwdns.privateserver.user;
 import dev.httpmarco.evelon.MariaDbLayer;
 import dev.httpmarco.evelon.Repository;
 import lombok.Getter;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,30 +19,30 @@ public final class UserHandler {
         this.cache = new HashMap<>();
     }
 
-    public User user(Player player) {
-        if (this.cache.containsKey(player.getUniqueId())) {
-            return this.cache.get(player.getUniqueId());
+    public User user(UUID uniqueId) {
+        if (this.cache.containsKey(uniqueId)) {
+            return this.cache.get(uniqueId);
         }
-        var user = this.repository.query().match("uniqueId", player.getUniqueId()).findFirst();
+        var user = this.repository.query().match("uniqueId", uniqueId).findFirst();
         if (user == null) {
             throw new RuntimeException("User not found!");
         }
 
-        this.cache.put(player.getUniqueId(), user);
+        this.cache.put(uniqueId, user);
 
         return user;
     }
 
-    public boolean exists(Player player) {
-        if (this.cache.containsKey(player.getUniqueId())) return true;
+    public boolean exists(UUID uniqueId) {
+        if (this.cache.containsKey(uniqueId)) return true;
 
-        return this.repository.query().match("uniqueId", player.getUniqueId()).exists();
+        return this.repository.query().match("uniqueId", uniqueId).exists();
     }
 
-    public void create(Player player) {
-        if (this.exists(player)) return;
+    public void create(UUID uniqueId) {
+        if (this.exists(uniqueId)) return;
 
-        this.repository.query().create(new User(player.getUniqueId(), new ArrayList<>(), new ArrayList<>()));
+        this.repository.query().create(new User(uniqueId, new ArrayList<>(), new ArrayList<>()));
     }
 
     public void update(User user) {

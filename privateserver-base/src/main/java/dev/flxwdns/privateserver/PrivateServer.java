@@ -86,11 +86,6 @@ public final class PrivateServer extends JavaPlugin {
 
                 var player = Bukkit.getPlayer(uuid);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 1, false, false, false));
-                for (int x = 0; x < 100; x++) {
-                    for (int z = 0; z < 100; z++) {
-                        player.sendBlockChange(player.getLocation().clone().add(x - 50, 0, z - 50), Material.BARRIER.createBlockData());
-                    }
-                }
                 player.sendActionBar(Component.text(this.getConfig().getString("prefix") + " §7Verbinde§8..."));
             });
         }, 0, 20);

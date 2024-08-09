@@ -5,7 +5,7 @@ import de.flxwdev.ascan.inventory.item.InteractItem;
 import de.flxwdev.ascan.inventory.item.ItemView;
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.sign.AnvilBuilder;
+import dev.flxwdns.privateserver.anvil.AnvilBuilder;
 import dev.flxwdns.privateserver.user.impl.Server;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -37,8 +37,8 @@ public final class ServerIconInventory extends PageableView<Material> {
     @Override
     public InteractItem constructItem(Material material) {
         return new InteractItem(ItemView.of(material).name("§7Material§8: §e" + material), () -> {
-            var user = PrivateServer.instance().userHandler().user(this.player());
-            this.server.icon(material);
+            var user = PrivateServer.instance().userHandler().user(this.player().getUniqueId());
+            this.server.icon(material.name());
             user.updateServer(this.server);
             PrivateServer.instance().userHandler().update(user);
 

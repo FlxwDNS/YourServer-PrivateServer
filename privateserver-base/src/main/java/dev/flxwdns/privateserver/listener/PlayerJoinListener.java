@@ -10,6 +10,6 @@ public final class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         var player = event.getPlayer();
-        PrivateServer.instance().userHandler().create(player);
+        PrivateServer.instance().userHandler().create(player.getUniqueId());
     }
 }

@@ -1,10 +1,9 @@
 package dev.flxwdns.privateserver.inventory.server;
 
-import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.BackItem;
-import dev.flxwdns.privateserver.inventory.ForwardItem;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
+import dev.flxwdns.privateserver.inventory.impl.BackItem;
+import dev.flxwdns.privateserver.inventory.impl.ForwardItem;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
 import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
@@ -25,7 +24,7 @@ public final class ServerListInventory {
     public ServerListInventory(Player player, ServerFilter filter) {
         List<Server> list = new ArrayList<>();
         if (filter.equals(ServerFilter.YOURS)) {
-            list.addAll(PrivateServer.instance().userHandler().user(player).servers());
+            list.addAll(PrivateServer.instance().userHandler().user(player.getUniqueId()).servers());
         } else {
             PrivateServer.instance().userHandler().repository().query().find().stream().toList().forEach(it -> list.addAll(it.servers()));
         }
@@ -66,7 +65,7 @@ public final class ServerListInventory {
                 .addIngredient('>', new ForwardItem())
                 .setContent(list.stream().map(server -> {
                     var owner = PrivateServer.instance().userHandler().repository().query().find().stream().filter(it -> it.servers().contains(server)).findFirst().orElse(null);
-                    return new SimpleItem(new ItemBuilder(server.icon()).setDisplayName("§7" + server.name()).setLegacyLore(List.of(
+                    return new SimpleItem(new ItemBuilder(Material.valueOf(server.icon())).setDisplayName("§7" + server.name()).setLegacyLore(List.of(
                             "§7Status §8» §7" + (server.runningId() == null ? "§cOFFLINE" : "§aONLINE"),
                             "§7",
                             "§f" + (server.description() == null ? "Keine Beschreibung gefunden." : server.description()),

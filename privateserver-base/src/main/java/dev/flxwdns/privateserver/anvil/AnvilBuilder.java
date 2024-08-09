@@ -1,4 +1,4 @@
-package dev.flxwdns.privateserver.sign;
+package dev.flxwdns.privateserver.anvil;
 
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;

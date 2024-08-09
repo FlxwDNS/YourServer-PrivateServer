@@ -2,9 +2,9 @@ package dev.flxwdns.privateserver.inventory.subdomain.create;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
-import dev.flxwdns.privateserver.sign.AnvilBuilder;
+import dev.flxwdns.privateserver.anvil.AnvilBuilder;
 import dev.flxwdns.privateserver.user.impl.Domain;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -65,7 +65,7 @@ public final class SubDomainCreateInventory {
                             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 1f);
                             return;
                         }
-                        var user = PrivateServer.instance().userHandler().user(player);
+                        var user = PrivateServer.instance().userHandler().user(player.getUniqueId());
                         user.domains().add(new Domain(subDomain + "." + domain));
                         PrivateServer.instance().userHandler().update(user);
 

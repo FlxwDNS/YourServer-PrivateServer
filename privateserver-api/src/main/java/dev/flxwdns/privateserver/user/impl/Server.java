@@ -3,7 +3,6 @@ package dev.flxwdns.privateserver.user.impl;
 import dev.httpmarco.evelon.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.bukkit.Material;
 
 import java.util.UUID;
 
@@ -20,5 +19,5 @@ public final class Server {
 
     private String name;
     private String description;
-    private Material icon;
+    private String icon;
 }

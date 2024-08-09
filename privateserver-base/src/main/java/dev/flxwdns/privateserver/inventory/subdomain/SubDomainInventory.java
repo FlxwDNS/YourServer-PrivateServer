@@ -2,8 +2,7 @@ package dev.flxwdns.privateserver.inventory.subdomain;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
-import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainSelectInventory;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.user.impl.Domain;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,7 +17,7 @@ import java.util.List;
 public final class SubDomainInventory {
 
     public SubDomainInventory(Player player, Domain domain) {
-        var connectedServer = PrivateServer.instance().userHandler().user(player).servers().stream().filter(it -> it.serverUniqueId().equals(domain.connectedServer())).findFirst().orElse(null);
+        var connectedServer = PrivateServer.instance().userHandler().user(player.getUniqueId()).servers().stream().filter(it -> it.serverUniqueId().equals(domain.connectedServer())).findFirst().orElse(null);
 
         var gui = Gui.normal()
                 .setStructure(

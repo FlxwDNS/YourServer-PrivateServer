@@ -2,10 +2,9 @@ package dev.flxwdns.privateserver.inventory.server.impl.plugins.list;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.BackItem;
-import dev.flxwdns.privateserver.inventory.ForwardItem;
-import dev.flxwdns.privateserver.inventory.HomeInventory;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
+import dev.flxwdns.privateserver.inventory.impl.BackItem;
+import dev.flxwdns.privateserver.inventory.impl.ForwardItem;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
 import dev.flxwdns.privateserver.plugin.CustomPlugin;
 import dev.flxwdns.privateserver.user.impl.Server;

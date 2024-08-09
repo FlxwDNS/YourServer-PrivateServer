@@ -2,17 +2,12 @@ package dev.flxwdns.privateserver.inventory.subdomain;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
-import dev.flxwdns.privateserver.inventory.BackItem;
-import dev.flxwdns.privateserver.inventory.ForwardItem;
-import dev.flxwdns.privateserver.inventory.WrappedComponent;
-import dev.flxwdns.privateserver.inventory.server.impl.ServerInventory;
-import dev.flxwdns.privateserver.inventory.subdomain.create.SubDomainSelectInventory;
+import dev.flxwdns.privateserver.inventory.impl.BackItem;
+import dev.flxwdns.privateserver.inventory.impl.ForwardItem;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.user.impl.Domain;
-import dev.flxwdns.privateserver.utils.NameFetcher;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import xyz.xenondevs.invui.gui.Gui;
 import xyz.xenondevs.invui.gui.PagedGui;
 import xyz.xenondevs.invui.gui.structure.Markers;
 import xyz.xenondevs.invui.item.builder.ItemBuilder;
@@ -41,15 +36,15 @@ public final class SubDomainSelectServerInventory {
                 }))
                 .addIngredient('<', new BackItem())
                 .addIngredient('>', new ForwardItem())
-                .setContent(PrivateServer.instance().userHandler().user(player).servers()
+                .setContent(PrivateServer.instance().userHandler().user(player.getUniqueId()).servers()
                         .stream()
-                        .map(server -> new SimpleItem(new ItemBuilder(server.icon()).setDisplayName("§7" + server.name()).setLegacyLore(List.of(
+                        .map(server -> new SimpleItem(new ItemBuilder(Material.valueOf(server.icon())).setDisplayName("§7" + server.name()).setLegacyLore(List.of(
                                 "§7",
                                 "§f" + (server.description() == null ? "Keine Beschreibung gefunden." : server.description()),
                                 "§7",
                                 "§eKlick §8» §7Server auswählen"
                         )), click -> {
-                            var user = PrivateServer.instance().userHandler().user(player);
+                            var user = PrivateServer.instance().userHandler().user(player.getUniqueId());
                             domain.connectedServer(server.serverUniqueId());
                             user.updateDomain(domain);
                             PrivateServer.instance().userHandler().update(user);

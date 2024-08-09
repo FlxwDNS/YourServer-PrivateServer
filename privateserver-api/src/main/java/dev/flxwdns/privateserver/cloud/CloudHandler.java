@@ -13,7 +13,7 @@ public interface CloudHandler {
     void connect(UUID uniqueId, String serverId);
     void queueConnect(UUID uniqueId, String serverId);
 
-    boolean isRunning(UUID serverId);
+    boolean isJoinAble(String serverId);
 
     Map<UUID, String> queueConnect();
 }

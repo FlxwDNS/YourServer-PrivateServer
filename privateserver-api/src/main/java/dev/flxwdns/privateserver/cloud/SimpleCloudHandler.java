@@ -101,9 +101,9 @@ public class SimpleCloudHandler implements CloudHandler, IListener {
     }
 
     @Override
-    public boolean isRunning(UUID serverId) {
+    public boolean isJoinAble(String serverId) {
         var service = CloudAPI.getInstance().getCloudServiceManager().getCloudServiceByName(serverId.toString());
-        return service != null && service.isOnline();
+        return service != null && service.isServiceJoinable();
     }
 
     @Override

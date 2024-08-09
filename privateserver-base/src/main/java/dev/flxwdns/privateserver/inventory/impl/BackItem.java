@@ -1,4 +1,4 @@
-package dev.flxwdns.privateserver.inventory;
+package dev.flxwdns.privateserver.inventory.impl;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import xyz.xenondevs.invui.gui.PagedGui;

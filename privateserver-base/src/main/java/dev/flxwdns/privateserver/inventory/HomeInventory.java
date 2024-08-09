@@ -2,12 +2,12 @@ package dev.flxwdns.privateserver.inventory;
 
 import de.flxwdev.ascan.inventory.item.SkullCreator;
 import dev.flxwdns.privateserver.PrivateServer;
+import dev.flxwdns.privateserver.inventory.impl.WrappedComponent;
 import dev.flxwdns.privateserver.inventory.server.ServerListInventory;
 import dev.flxwdns.privateserver.inventory.server.filter.ServerFilter;
 import dev.flxwdns.privateserver.inventory.server.utils.ConfirmInventory;
 import dev.flxwdns.privateserver.inventory.subdomain.SubDomainListInventory;
 import dev.flxwdns.privateserver.user.impl.Server;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -33,8 +33,8 @@ public final class HomeInventory {
                         .setDisplayName("§aServer erstellen")
                         .setLore(List.of(WrappedComponent.of("§7Erstelle deinen eigenen Server§8."))), click -> {
                     new ConfirmInventory(click.getPlayer(), () -> {
-                        var user = PrivateServer.instance().userHandler().user(click.getPlayer());
-                        user.servers().add(new Server(UUID.randomUUID(), -1, System.currentTimeMillis(), null, "Server von " + click.getPlayer().getName(), null, Material.SCAFFOLDING));
+                        var user = PrivateServer.instance().userHandler().user(click.getPlayer().getUniqueId());
+                        user.servers().add(new Server(UUID.randomUUID(), -1, System.currentTimeMillis(), null, "Server von " + click.getPlayer().getName(), null, Material.SCAFFOLDING.name()));
                         PrivateServer.instance().userHandler().update(user);
                         click.getPlayer().closeInventory();
                         click.getPlayer().playSound(click.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
